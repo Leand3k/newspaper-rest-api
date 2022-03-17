@@ -19,7 +19,8 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 
 
 db = SQLAlchemy(app)
-from models import users
+from models import admin, article, Files
+db.drop_all()
 db.create_all()
 migrate = Migrate(app, db)
 
