@@ -1,7 +1,6 @@
 from sqlalchemy import ForeignKey
 
 from app import db
-from models.Files import Files
 
 
 
