@@ -21,15 +21,23 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 # connection and creation of tables
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+# importing models that will be created
 from models import admin, article, file
+
 db.drop_all()
 db.create_all()
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
+
+# importing routes for blueprint
+from routes.filesRoute import filesRoute
+from routes.articleRoute import articleRoute
+
+app.register_blueprint(filesRoute)
+app.register_blueprint(articleRoute)
 
 
 @app.route("/")
 def hello():
-
     return "<p>Hi</p>"
 
 

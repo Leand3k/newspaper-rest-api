@@ -1,6 +1,6 @@
 from sqlalchemy import ForeignKey
-from app import db, ma
 from models.article import Article
+from app import db, ma
 
 
 class Files(db.Model):
@@ -18,7 +18,7 @@ class Files(db.Model):
 
 class FilesSchema(ma.Schema):
     class Meta:
-        fields = ('idFile', 'idArticle', 'filename')
+        fields = ('idFile', 'idArticle', 'filename', 'data')
 
 
 file_schema = FilesSchema()

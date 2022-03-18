@@ -1,4 +1,6 @@
-from sqlalchemy import ForeignKey
+from datetime import datetime
+
+from sqlalchemy import ForeignKey, DateTime, func
 
 from app import db, ma
 
@@ -9,18 +11,18 @@ class Article(db.Model):
     title = db.Column(db.String(50), nullable=False)
     body = db.Column(db.Text, nullable=False)
     author = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.DateTime(), nullable=False)
+    date = db.Column(DateTime(timezone=True), default=func.now())
 
-    def __init__(self, title, body, author, date):
+    def __init__(self, title, body, author):
         self.title = title
         self.body = body
         self.author = author
-        self.date = date
+
 
 
 class ArticleSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'title', 'body', 'author', 'date')
+        fields = ('title', 'body', 'author')
 
 
 article_schema = ArticleSchema()
