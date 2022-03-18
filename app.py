@@ -21,19 +21,16 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 # connection and creation of tables
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-from models import admin, article, Files
+from models import admin, article, file
 db.drop_all()
 db.create_all()
 migrate = Migrate(app, db)
 
 
-
-
-
-
 @app.route("/")
 def hello():
-    return {"Hello", "world"}
+
+    return "<p>Hi</p>"
 
 
 if __name__ == "__main__":
