@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 from dotenv import load_dotenv
-
+from flask_marshmallow import Marshmallow
 from flask import Flask, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import *
@@ -12,6 +12,7 @@ from psycopg2 import *
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 app = Flask(__name__)
+
 app.secret_key = "secret key"
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -19,10 +20,13 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 
 # connection and creation of tables
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 from models import admin, article, Files
-# db.drop_all()
+db.drop_all()
 db.create_all()
 migrate = Migrate(app, db)
+
+
 
 
 
