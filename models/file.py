@@ -18,7 +18,7 @@ class Files(db.Model):
 
 class FilesSchema(ma.Schema):
     class Meta:
-        fields = ('idFile', 'idArticle', 'filename', 'data')
+        fields = ('idArticle', 'filename', 'data')
 
 
 file_schema = FilesSchema()

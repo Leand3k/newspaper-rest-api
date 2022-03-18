@@ -24,7 +24,7 @@ ma = Marshmallow(app)
 # importing models that will be created
 from models import admin, article, file
 
-db.drop_all()
+# db.drop_all()
 db.create_all()
 # migrate = Migrate(app, db)
 
