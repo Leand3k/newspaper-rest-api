@@ -1,3 +1,5 @@
+import json
+
 from flask import request, jsonify, Blueprint, send_file
 from werkzeug.utils import secure_filename
 
@@ -7,15 +9,17 @@ from app import db
 filesRoute = Blueprint('filesRoute', __name__)
 
 
+class Object:
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
+
+
+jsonserialiaze = Object()
+
+
 @filesRoute.route('/files', methods=['POST'])
 def add_file():
-    # file.Files.idArticle = request.form['idArticle']
-    # file.Files.filename = request.form['filename']
-    # file.Files.data = request.files['data']
-    # file.Files.data.save(secure_filename(file.Files.data.filename))
-
-    # new_file = file.Files(file.Files.idArticle, file.Files.filename, file.Files.data)
-
     multimedia = request.files['multimedia']
     if not multimedia:
         return 'No picture uploaded', 400

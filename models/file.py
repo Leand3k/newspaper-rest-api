@@ -5,7 +5,7 @@ from sqlalchemy_media import Image, ImageAnalyzer, ImageValidator, ImageProcesso
 
 
 class Files(db.Model):
-    __tablename__ = 'files'
+    __tablename__ = "files"
     idFile = db.Column(db.Integer, primary_key=True)
     # idArticle = db.Column(ForeignKey(Article.idArticle), nullable=False)
     filename = db.Column(db.String(50))
@@ -20,7 +20,7 @@ class Files(db.Model):
 
 class FilesSchema(ma.Schema):
     class Meta:
-        fields = ('filename', 'data', 'mimetype')
+        fields = ("filename", "mimetype")
 
 
 file_schema = FilesSchema()

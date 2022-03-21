@@ -6,7 +6,7 @@ from app import db, ma
 
 
 class Article(db.Model):
-    __tablename__ = 'article'
+    __tablename__ = "article"
     idArticle = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     body = db.Column(db.Text, nullable=False)
@@ -19,10 +19,9 @@ class Article(db.Model):
         self.author = author
 
 
-
 class ArticleSchema(ma.Schema):
     class Meta:
-        fields = ('title', 'body', 'author')
+        fields = ("title", "body", "author")
 
 
 article_schema = ArticleSchema()
