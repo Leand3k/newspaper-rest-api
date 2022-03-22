@@ -30,7 +30,7 @@ def add_file():
     return file.file_schema.jsonify(data)
 
 
-@filesRoute.route('/<int:idFile>')
+@filesRoute.route('/files/<int:idFile>')
 def get_file(idFile):
     # returnable = Files.query.filter_by(idFile=Files.idFile).first()
     returnable = db.session.query(Files).get(idFile)
@@ -43,7 +43,7 @@ def get_file(idFile):
 
 @filesRoute.route("/files/delete/<int:idFile>")
 def delete_file(idFile):
-    returnable = Files.query.filter_by(idFile=Files.idFile).first()
+    returnable = db.session.query(Files).get(idFile)
     db.session.delete(returnable)
     db.session.commit()
     if not returnable:
