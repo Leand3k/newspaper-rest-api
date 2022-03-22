@@ -1,10 +1,11 @@
 import json
 
-from flask import request, jsonify, Blueprint, send_file
+from flask import request, jsonify, Blueprint, send_file, Response
 from werkzeug.utils import secure_filename
 
 from models import file
 from app import db
+from models.file import Files
 
 filesRoute = Blueprint('filesRoute', __name__)
 
@@ -38,3 +39,14 @@ def add_file():
     db.session.commit()
 
     return file.file_schema.jsonify(data)
+
+@filesRoute.route('/files/<int:idFile>')
+def get_file(idFile):
+    # Files.data = Files.query.filter_by(idFile=Files.idFile).first()
+
+    returnable = Files.query.filter_by(idFile=Files.idFile).first()
+    if not returnable:
+        return 'Img not found', 404
+
+    return Response(returnable.data, mimetype=returnable.mimetype)
+
