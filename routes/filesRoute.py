@@ -1,4 +1,3 @@
-import json
 from flask import request, jsonify, Blueprint, send_file, Response
 from werkzeug.utils import secure_filename
 from models import file
@@ -32,7 +31,7 @@ def add_file():
 
 @filesRoute.route('/files/<int:idFile>')
 def get_file(idFile):
-    # returnable = Files.query.filter_by(idFile=Files.idFile).first()
+
     returnable = db.session.query(Files).get(idFile)
     db.session.commit()
 
@@ -40,6 +39,7 @@ def get_file(idFile):
         return "Img not found", 404
 
     return Response(returnable.data, mimetype=returnable.mimetype)
+
 
 @filesRoute.route("/files/delete/<int:idFile>")
 def delete_file(idFile):
