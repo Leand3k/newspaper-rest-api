@@ -28,3 +28,10 @@ def get_article(idArticle):
     returnable = Article.query.get_or_404(idArticle)
     return article_schema.dump(returnable)
 
+
+@articleRoute.route("/article/delete/<int:idArticle>", methods=["DELETE"])
+def delete_article(idArticle):
+    returnable = Article.query.get_or_404(idArticle)
+    db.session.delete(returnable)
+    db.session.commit()
+    return '', 204
