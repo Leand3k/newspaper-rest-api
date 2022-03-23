@@ -29,8 +29,8 @@ db.create_all()
 # migrate = Migrate(app, db)
 
 # importing routes for blueprint
-from routes.filesRoute import filesRoute
-from routes.articleRoute import articleRoute
+from routes.files_route import filesRoute
+from routes.articles_route import articleRoute
 
 app.register_blueprint(filesRoute)
 app.register_blueprint(articleRoute)

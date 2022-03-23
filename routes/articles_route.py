@@ -1,6 +1,9 @@
-from flask import request, jsonify, Blueprint
+import json
+
+from flask import request, Response, jsonify, Blueprint
 from models import article
 from app import db
+from models.article import Article, article_schema
 
 articleRoute = Blueprint("articleRoute", __name__)
 
@@ -17,3 +20,11 @@ def add_article():
     db.session.add(new_article)
     db.session.commit()
     return article.article_schema.jsonify(new_article)
+
+
+@articleRoute.route("/article/<int:idArticle>")
+def get_article(idArticle):
+
+    returnable = Article.query.get_or_404(idArticle)
+    return article_schema.dump(returnable)
+

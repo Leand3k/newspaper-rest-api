@@ -29,7 +29,7 @@ def add_file():
     return file.file_schema.jsonify(data)
 
 
-@filesRoute.route('/files/<int:idFile>')
+@filesRoute.route("/files/<int:idFile>")
 def get_file(idFile):
 
     returnable = db.session.query(Files).get(idFile)
@@ -47,5 +47,5 @@ def delete_file(idFile):
     db.session.delete(returnable)
     db.session.commit()
     if not returnable:
-        return 'Img can not be deleted.', 404
-    return 'Img deleted', 200
+        return "Img can not be deleted.", 404
+    return "Img deleted", 200
