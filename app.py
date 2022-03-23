@@ -4,10 +4,7 @@ from dotenv import load_dotenv
 from flask_marshmallow import Marshmallow
 from flask import Flask, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import *
-from flask_migrate import Migrate
-import psycopg2
-from psycopg2 import *
+
 
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -31,9 +28,11 @@ db.create_all()
 # importing routes for blueprint
 from routes.files_route import filesRoute
 from routes.articles_route import articleRoute
+from routes.admin_route import adminRoute
 
 app.register_blueprint(filesRoute)
 app.register_blueprint(articleRoute)
+app.register_blueprint(adminRoute)
 
 
 @app.route("/")

@@ -1,5 +1,3 @@
-from sqlalchemy import ForeignKey
-
 from app import db, ma
 
 
@@ -18,7 +16,7 @@ class Admin(db.Model):
 
 class AdminSchema(ma.Schema):
     class Meta:
-        fields = ("idAdmin", "name", "password", "idStaff")
+        fields = ("name", "password", "idStaff")
 
 
 admin_schema = AdminSchema()

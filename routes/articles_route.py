@@ -8,7 +8,7 @@ from models.article import Article, article_schema
 articleRoute = Blueprint("articleRoute", __name__)
 
 
-@articleRoute.route("/article", methods=["POST"])
+@articleRoute.route("/article/create", methods=["POST"])
 def add_article():
     article.Article.title = request.form["title"]
     article.Article.body = request.form["body"]
@@ -48,4 +48,4 @@ def edit_article(idArticle):
         returnable.author = request.form["author"]
 
     db.session.commit()
-    return article_schema.dump(returnable)
+    return article_schema.dump(returnable), 200
