@@ -39,3 +39,25 @@ def delete_admin():
         return 'Password is wrong. Try again.', 400
 
     return "", 204
+
+
+@adminRoute.route("/admin/edit", methods=["POST"])
+def edit_admin():
+    getid = request.form['idAdmin']
+    getpassword = request.form["password"]
+    checkingAdmin = db.session.query(admin.Admin).filter(getid == admin.Admin.idAdmin).first()
+    if check_password_hash(checkingAdmin.password, getpassword):
+        returnable = admin.Admin.query.get_or_404(getid)
+        if "name" in request.form:
+            returnable.name = request.form["name"]
+        if "password_new" in request.form:
+            new_password = request.form["password_new"]
+            password_hash = generate_password_hash(new_password)
+            returnable.password = password_hash
+        if "idStaff" in request.form:
+            returnable.idStaff = request.form["idStaff"]
+
+        db.session.commit()
+        return admin.admin_schema.dump(returnable), 200
+    else:
+        return 'Password is wrong. Try again.', 400

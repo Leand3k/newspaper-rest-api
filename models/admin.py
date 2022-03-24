@@ -16,7 +16,7 @@ class Admin(db.Model):
 
 class AdminSchema(ma.Schema):
     class Meta:
-        fields = ("name", "idStaff")
+        fields = ("name", "idStaff", "password")
 
 
 admin_schema = AdminSchema()
