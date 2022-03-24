@@ -4,8 +4,6 @@ from werkzeug.utils import secure_filename
 from app import db
 from models import admin
 
-
-
 adminRoute = Blueprint("adminRoute", __name__)
 
 
@@ -20,3 +18,9 @@ def add_admin():
     db.session.add(new_admin)
     db.session.commit()
     return admin.admin_schema.jsonify(new_admin)
+
+
+@adminRoute.route("/admin/<int:idAdmin>")
+def get_admin(idAdmin):
+    returnable = admin.Admin.query.get_or_404(idAdmin)
+    return admin.admin_schema.dump(returnable)
