@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint, send_file, Response
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from app import db
 from models import admin
@@ -24,3 +24,18 @@ def add_admin():
 def get_admin(idAdmin):
     returnable = admin.Admin.query.get_or_404(idAdmin)
     return admin.admin_schema.dump(returnable)
+
+
+@adminRoute.route("/admin/delete", methods=["DELETE"])
+def delete_admin():
+    getid = request.form['idAdmin']
+    admin.Admin.password = request.form["password"]
+    checkingadmin = db.session.query(admin.Admin).filter(getid == admin.Admin.idAdmin).first()
+    if check_password_hash(checkingadmin.password, admin.Admin.password):
+        returnable = admin.Admin.query.get_or_404(getid)
+        db.session.delete(returnable)
+        db.session.commit()
+    else:
+        return 'Password is wrong. Try again.', 400
+
+    return "", 204
