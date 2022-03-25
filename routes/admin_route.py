@@ -1,6 +1,5 @@
-from flask import request, jsonify, Blueprint, send_file, Response, session, flash, g
+from flask import request, Blueprint, session, flash, g
 from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import secure_filename
 from app import db
 from models import admin
 

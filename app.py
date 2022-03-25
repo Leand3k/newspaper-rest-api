@@ -2,9 +2,8 @@ import os
 from datetime import timedelta
 from dotenv import load_dotenv
 from flask_marshmallow import Marshmallow
-from flask import Flask, redirect, url_for, request, session
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
 
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -23,7 +22,6 @@ from models import admin, article, file
 
 # db.drop_all()
 db.create_all()
-# migrate = Migrate(app, db)
 
 # importing routes for blueprint
 from routes.files_route import filesRoute

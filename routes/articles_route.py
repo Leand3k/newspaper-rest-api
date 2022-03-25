@@ -1,6 +1,5 @@
-import json
 
-from flask import request, Response, jsonify, Blueprint
+from flask import request, Blueprint
 from models import article
 from app import db
 from models.article import Article, article_schema

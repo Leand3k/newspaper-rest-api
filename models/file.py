@@ -1,7 +1,4 @@
-from sqlalchemy import ForeignKey
-from models.article import Article
 from app import db, ma
-from sqlalchemy_media import Image, ImageAnalyzer, ImageValidator, ImageProcessor
 
 
 class Files(db.Model):

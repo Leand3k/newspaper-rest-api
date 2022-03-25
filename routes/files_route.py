@@ -1,4 +1,4 @@
-from flask import request, jsonify, Blueprint, send_file, Response
+from flask import request, Blueprint, Response
 from werkzeug.utils import secure_filename
 from models import file
 from app import db

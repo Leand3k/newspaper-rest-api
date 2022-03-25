@@ -1,6 +1,6 @@
-from datetime import datetime
 
-from sqlalchemy import ForeignKey, DateTime, func
+
+from sqlalchemy import DateTime, func
 
 from app import db, ma
 
