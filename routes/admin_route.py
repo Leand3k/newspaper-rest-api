@@ -9,7 +9,7 @@ adminRoute = Blueprint("adminRoute", __name__)
 
 @adminRoute.before_request
 def before_request_user():
-    if "loggedin" in session:
+    if "logged" in session:
         name = session["name"]
         g.username = name
 
@@ -36,13 +36,13 @@ def get_admin(idAdmin):
 
 @adminRoute.route("/admin/delete", methods=["DELETE"])
 def delete_admin():
-    getid = request.form["idAdmin"]
+    get_id = request.form["idAdmin"]
     admin.Admin.password = request.form["password"]
-    checkingadmin = (
-        db.session.query(admin.Admin).filter(getid == admin.Admin.idAdmin).first()
+    checking_admin = (
+        db.session.query(admin.Admin).filter(get_id == admin.Admin.idAdmin).first()
     )
-    if check_password_hash(checkingadmin.password, admin.Admin.password):
-        returnable = admin.Admin.query.get_or_404(getid)
+    if check_password_hash(checking_admin.password, admin.Admin.password):
+        returnable = admin.Admin.query.get_or_404(get_id)
         db.session.delete(returnable)
         db.session.commit()
     else:
@@ -77,18 +77,30 @@ def edit_admin():
 
 @adminRoute.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST" and "name" in request.form and "password" in request.form:
+    if (
+        request.method == "POST"
+        and "name" in request.form
+        and "password" in request.form
+    ):
         name = request.form["name"]
         password = request.form["password"]
         account = db.session.query(admin.Admin).filter(name == admin.Admin.name).first()
 
         if account:
             if check_password_hash(account.password, password):
-                session["loggedin"] = True
+                session["logged"] = True
                 session["idAdmin"] = account.idAdmin
                 session["name"] = account.name
-                return 'Logged in', 200
+                return "Logged in", 200
             else:
                 flash("Incorrect name or password. Try again.")
         else:
-            return 'All wrong', 400
+            return "All wrong", 400
+
+
+@adminRoute.route("/logout")
+def logout():
+    session.pop("logged", None)
+    session.pop("idAdmin", None)
+    session.pop("name", None)
+    return "logged off", 200
