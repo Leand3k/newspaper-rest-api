@@ -21,7 +21,7 @@ class Article(db.Model):
 
 class ArticleSchema(ma.Schema):
     class Meta:
-        fields = ("title", "body", "author")
+        fields = ("title", "author", "date", "body")
 
 
 article_schema = ArticleSchema()
