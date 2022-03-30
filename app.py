@@ -34,15 +34,7 @@ app.register_blueprint(filesRoute)
 app.register_blueprint(articleRoute)
 app.register_blueprint(adminRoute)
 
-# Enabling CORS
-origins = ["*"]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+
 
 
 @app.route("/")
