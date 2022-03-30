@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from flask_marshmallow import Marshmallow
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL").replace("://", "ql://", 1)
@@ -13,6 +14,7 @@ app.secret_key = "secret key"
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(minutes=5)
+CORS(app)
 
 # connection and creation of tables
 db = SQLAlchemy(app)
@@ -31,6 +33,16 @@ from routes.admin_route import adminRoute
 app.register_blueprint(filesRoute)
 app.register_blueprint(articleRoute)
 app.register_blueprint(adminRoute)
+
+# Enabling CORS
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.route("/")
