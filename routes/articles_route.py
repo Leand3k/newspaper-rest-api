@@ -2,7 +2,7 @@
 from flask import request, Blueprint
 from models import article
 from app import db
-from models.article import Article, article_schema
+from models.article import Article, article_schema, articles_schema
 
 articleRoute = Blueprint("articleRoute", __name__)
 
@@ -26,6 +26,10 @@ def get_article(idArticle):
     returnable = Article.query.get_or_404(idArticle)
     return article_schema.dump(returnable)
 
+@articleRoute.route("/article/all")
+def get_all_article():
+    returnable = Article.query.all()
+    return articles_schema.dump(returnable)
 
 @articleRoute.route("/article/delete/<int:idArticle>", methods=["DELETE"])
 def delete_article(idArticle):
