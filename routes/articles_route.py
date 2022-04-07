@@ -29,7 +29,7 @@ def get_article(idArticle):
 @articleRoute.route("/article/all")
 def get_all_article():
     returnable = Article.query.all()
-    return articles_schema(returnable)
+    return articles_schema.jsonify(returnable)
 
 @articleRoute.route("/article/delete/<int:idArticle>", methods=["DELETE"])
 def delete_article(idArticle):
