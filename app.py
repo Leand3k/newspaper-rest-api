@@ -35,8 +35,6 @@ app.register_blueprint(articleRoute)
 app.register_blueprint(adminRoute)
 
 
-
-
 @app.route("/")
 def hello():
     return "<p>Hi</p>"
